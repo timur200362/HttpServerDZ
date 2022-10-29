@@ -1,0 +1,422 @@
+header .page_content {
+  background: radial-gradient(rgba(24, 26, 33, 0) 0%, #181a21 100%) fixed
+      no-repeat,
+    url(https://store.cloudflare.steamstatic.com/public/shared/images/joinsteam/new_login_bg_strong_mask.jpg)
+      center top no-repeat,
+    #181a21;
+}
+
+header .login_LoginContainer {
+  padding-top: 80px;
+  padding-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header .newlogindialog_Gap {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+header .newlogindialog_PrimaryHeader1 {
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 16px;
+}
+
+header .newlogindialog_PrimaryHeader {
+  color: #fff;
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: 0.055em;
+  font-weight: 200;
+}
+
+header .newlogindialog_FormContainer {
+  background-color: #181a21;
+  border-radius: 4px;
+  padding: 24px 32px;
+  flex: 1;
+  min-width: 636px;
+}
+
+header .newlogindialog_SideBySide {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+header .newlogindialog_LoginForm {
+  flex: 1;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+header .newlogindialog_TextField1 {
+  display: grid;
+  grid-template-areas:
+    "label hint"
+    "input input";
+  grid-template-columns: 1fr min-content;
+  gap: 2px;
+}
+
+header .newlogindialog_HighLight {
+  color: #1999ff;
+  font-weight: 500;
+}
+
+header .newlogindialog_FieldLabel1 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+header .newlogindialog_QRSection {
+  flex: 0;
+  display: grid;
+  gap: 4px;
+  margin-left: 24px;
+}
+
+header .newlogindialog_TextInput1 {
+  border-radius: 2px;
+  color: #fff;
+  padding: 10px;
+  background-color: #32353c;
+  outline: none;
+  font-size: 15px;
+  grid-area: input;
+  border: 1px solid #32353c;
+}
+
+header .newlogindialog_TextField2 {
+  display: grid;
+  grid-template-areas:
+    "label hint"
+    "input input";
+  grid-template-columns: 1fr min-content;
+  gap: 2px;
+}
+
+header .newlogindialog_FieldLabel2 {
+  font-size: 12px;
+  color: #afafaf;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+header .newlogindialog_TextInput2 {
+  border-radius: 2px;
+  color: #fff;
+  padding: 10px;
+  background-color: #32353c;
+  outline: none;
+  font-size: 15px;
+  grid-area: input;
+  border: 1px solid #32353c;
+}
+
+header .newlogindialog_CheckboxField {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+header .newlogindialog_Checkbox {
+  display: flex;
+  width: 14px;
+  height: 14px;
+  padding: 3px;
+  border-radius: 2px;
+  background-color: #32353c;
+  cursor: pointer;
+}
+
+header .newlogindialog_Check {
+  margin-right: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+header .SVGIcon_Button {
+  fill: #fff;
+  overflow: visible;
+  width: 100%;
+  height: 100%;
+  max-width: 320px;
+  max-height: 320px;
+}
+
+header .newlogindialog_CheckboxFieldLabel {
+  color: #afafaf;
+  font-size: 12px;
+  user-select: none;
+  padding-left: 6px;
+}
+
+header .newlogindialog_SignInButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header .newlogindialog_SubmitButton {
+  position: relative;
+  background: linear-gradient(90deg, #06bfff 0%, #2d73ff 100%);
+  border-radius: 2px;
+  border: none;
+  outline: none;
+  padding: 12px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: inherit;
+  text-align: center;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  width: 270px;
+}
+
+header .newlogindialog_FormError {
+  color: #c15755;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+}
+
+header .newlogindialog_TextAlignCenter {
+  text-align: center;
+}
+
+header .newlogindialog_TextLink {
+  color: #afafaf;
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+header .newlogindialog_QRSection {
+  flex: 0;
+  display: grid;
+  gap: 4px;
+  margin-left: 24px;
+}
+
+header .newlogindialog_Beta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 200px;
+}
+
+header .newlogindialog_BetaTag {
+  color: #1999ff;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  margin: 6px 0px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+header .newlogindialog_BetaSubtitleWithQR {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0px;
+}
+header .newlogindialog_Beta222 {
+  display: flex;
+  align-items: center;
+}
+header .newlogindialog_PhoneIcon {
+  width: 120px;
+  fill: #afafaf;
+}
+
+header .newlogindialog_BetaSubtitle {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #afafaf;
+  margin: 8px;
+}
+
+header .newlogindialog_JoinBetaButton {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  color: #fff;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin-right: 110px;
+}
+
+header .newlogindialog_ShowQRLink {
+  text-align: center;
+  text-decoration-line: underline;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  color: #afafaf;
+  padding: 12px 0px;
+  cursor: pointer;
+}
+
+header .login_bottom_row {
+  display: flex;
+  flex-direction: row;
+  padding-top: 48px;
+  align-items: center;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  justify-content: center;
+  background-color: #181a21;
+  margin-bottom: 90px;
+}
+
+header .login_bottom_row_item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: 200px;
+}
+
+header .subtext {
+  font-size: 14px;
+  color: #b8b6b4;
+}
+
+header .login_join_desc {
+  max-width: 60%;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+header .login_btn_bottom_row_item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: 200px;
+  margin-top: 20px;
+}
+
+header .join_image_login_bottom_row_item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: 200px;
+  width: 320px;
+}
+
+header .login_btn_ctn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+header .login_btn_ctn a {
+  margin: 20px 0 10px 0;
+  display: block;
+  text-align: center;
+}
+
+header .btn_white_transparent {
+  border-radius: 2px;
+  border: none;
+  padding: 1px;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none !important;
+  color: #fff !important;
+  background: transparent;
+}
+
+header .textSTEAM {
+  padding: 0 15px;
+  font-size: 15px;
+  line-height: 30px;
+  display: block;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+}
+
+#footer {
+  font-family: Arial, Helvetica, sans-serif;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px 0 60px 0;
+  margin: 0;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  background: #181a21;
+  height: 100%;
+  flex-grow: 1;
+}
+
+@media screen and (max-width: 941px) {
+  header .page_content {
+    background: radial-gradient(rgba(24, 26, 33, 0) 0%, #181a21 100%) fixed
+        no-repeat,
+      url(https://store.cloudflare.steamstatic.com/public/shared/images/joinsteam/new_login_bg_strong_mask_mobile.jpg)
+        center top no-repeat,
+      #181a21;
+  }
+  header .login_LoginContainer {
+    padding-top: 12px;
+  }
+  header .newlogindialog_PrimaryHeader {
+    text-align: center;
+  }
+  header .newlogindialog_FormContainer {
+    background-color: transparent;
+    min-width: 0px;
+  }
+  header .newlogindialog_SideBySide {
+    flex-direction: column;
+  }
+  header .login_bottom_row {
+    flex-direction: column-reverse;
+  }
+  header .newlogindialog_PhoneIcon {
+    display: none;
+  }
+  header .newlogindialog_BetaSubtitle {
+    text-align: center;
+  }
+  header .newlogindialog_Beta {
+    align-items: center;
+  }
+  header .newlogindialog_BetaTag {
+    margin-top: 50px;
+  }
+  header .newlogindialog_JoinBetaButton {
+    margin-right: 0px;
+    margin-top: 10px;
+  }
+}

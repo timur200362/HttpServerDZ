@@ -1,0 +1,129 @@
+header .global_content {
+  background: #171a21;
+}
+header .content {
+  background: #171a21;
+  position: relative;
+  width: 940px;
+  height: 104px;
+  margin: 0px auto;
+  z-index: 402;
+}
+
+header .logo {
+  float: left;
+  padding-top: 0px;
+  margin-right: 40px;
+  width: 176px;
+  height: 44px;
+}
+
+header .supernav_container a {
+  display: block;
+  position: relative;
+  padding-top: 45px;
+  padding-left: 7px;
+  padding-right: 7px;
+  padding-bottom: 7px;
+  line-height: 16px;
+  float: left;
+  font-size: 14px;
+  color: #b8b6b4;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+header .global_action {
+  position: absolute;
+  right: 0px;
+  top: 6px;
+  height: 21px;
+  line-height: 21px;
+  color: #b8b6b4;
+  font-size: 11px;
+  z-index: 401;
+}
+
+header .global_action_menu {
+  line-height: 24px;
+  vertical-align: top;
+  display: inline-block;
+}
+
+header .header_installsteam_btn_green {
+  display: inline-block;
+  position: relative;
+  line-height: 24px;
+  margin-right: 3px;
+}
+
+header .header_installsteam_btn_content {
+  background-color: #5c7e10;
+  display: inline-block;
+  padding-left: 9px;
+  padding-right: 9px;
+  background-position: 10px 5px;
+  background-repeat: no-repeat;
+  text-decoration: none;
+  color: #e5e4dc;
+  font-weight: normal;
+}
+
+header .header_installsteam_btn_content img {
+  padding-right: 9px;
+}
+
+header .global_action_link {
+  color: #b8b6b4;
+  padding: 0 4px;
+  text-decoration: none;
+}
+
+header .pulldown_global_action_link {
+  padding-right: 18px;
+  background-image: url(https://store.cloudflare.steamstatic.com/public/shared/images/popups/btn_arrow_down_padded.png);
+  background-position: right center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+header .mobile_header {
+  display: none;
+}
+@media screen and (max-width: 941px) {
+  header .global_content {
+    box-shadow: 0 0 7px 0 rgb(0 0 0 / 75%);
+    overflow: visible;
+    z-index: 20;
+  }
+  header .mobile_header {
+    display: block;
+    box-shadow: 0 0 7px 0 rgb(0 0 0 / 75%);
+    padding: 13px 8px;
+  }
+  header .mobile_header_content {
+    padding: 0;
+    margin: 0;
+  }
+  header .mobile_header_menu_logo {
+    position: absolute;
+    cursor: pointer;
+    width: 36px;
+    height: 31px;
+  }
+  header .mobile_header_menu_logo img {
+    border: none;
+    height: 31px;
+    width: 36px;
+  }
+  header .mobile_header_logo a {
+    display: flex;
+    justify-content: center;
+  }
+  header .mobile_header_logo img {
+    height: 36px;
+    width: 157px;
+  }
+  header .global_content .content {
+    display: none;
+  }
+}
