@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace INF2course.Week_6.Attributes
+namespace INF2course.Attributes
 {
-    public class HttpGET:Attribute
+    public class HttpGET : Attribute
     {
         public string MethodURI { get; set; }
         public HttpGET(string methodURI)

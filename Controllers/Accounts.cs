@@ -2,23 +2,28 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using INF2course.Week_6.Attributes;
+using System.Reflection.PortableExecutable;
+using INF2course.Attributes;
+using INF2course.DAO;
 
-namespace INF2course.Week_6.Controllers
+namespace INF2course.Controllers
 {
     [HttpController("accounts")]
     public class Accounts
     {
+        DAOAccount dAO=new DAOAccount();
+
         [HttpGET("getaccountbyid")]
-        public Account GetAccountById(int id)
+        public AccountInfo GetAccountById(int id)
         {
+            //return dAO.GetById(id);
 
-            Account account = null;
+            AccountInfo account = null;
             string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SteamDB;Integrated Security=True";
-
-
             string sqlExpression = "select * from [dbo].[Table]";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -33,7 +38,7 @@ namespace INF2course.Week_6.Controllers
                     {
                         if (reader.GetInt32(0) == id)
                         {
-                            account = new Account
+                            account = new AccountInfo
                          (
                                 reader.GetInt32(0),
                                 reader.GetString(1),
@@ -48,9 +53,10 @@ namespace INF2course.Week_6.Controllers
         }
 
         [HttpGET("getaccounts")]
-        public List<Account> GetAccounts()
+        public List<AccountInfo> GetAccounts()
         {
-            List<Account> accounts = new List<Account>();
+        //    return dAO.GetAll();
+            List<AccountInfo> accounts = new List<AccountInfo>();
             string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SteamDB;Integrated Security=True";
 
             string sqlExpression = "select * from [dbo].[Table]";
@@ -67,7 +73,7 @@ namespace INF2course.Week_6.Controllers
                     //Построчно считываем данные
                     while (reader.Read())
                     {
-                        accounts.Add(new Account
+                        accounts.Add(new AccountInfo
                         (reader.GetInt32(0),
                          reader.GetString(1),
                          reader.GetString(2))
@@ -80,32 +86,47 @@ namespace INF2course.Week_6.Controllers
         }
 
         [HttpPOST("saveaccount")]
-        public static async void SaveAccount(string login = "test3", string password = "test3")
+        public bool SaveAccount(string login = "test", string password = "test")
         {
-            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SteamDB;Integrated Security=True";
-
-            // выражение SQL для добавления данных
-            string sqlExpression = "INSERT INTO [dbo].[Table] (Login, Password) VALUES (@login, @password)";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            
+            AccountInfo existingAccount = dAO.GetByColumnValue("login", login);
+            if (existingAccount != null)
             {
-                await connection.OpenAsync();
-
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-
-                // создаем параметр для логина
-                SqlParameter loginParam = new SqlParameter("@login", login);
-                // добавляем параметр к команде
-                command.Parameters.Add(loginParam);
-                // создаем параметр для пароля
-                SqlParameter passwordParam = new SqlParameter("@password", password);
-                // добавляем параметр к команде
-                command.Parameters.Add(passwordParam);
-
-                // записываем строку в бд
-                await command.ExecuteNonQueryAsync();
+                return true;
             }
+
+            AccountInfo accountInfo = new AccountInfo
+            {
+                Login = login,
+                Password = password
+            };
+            dAO.Insert(accountInfo);
+
+            return false;
         }
 
+        /* public static async void SaveAccount(string login = "test3", string password = "test3")
+         {
+            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SteamDB;Integrated Security=True";
+
+             // выражение SQL для добавления данных
+             string sqlExpression = "INSERT INTO [dbo].[Table] (Login, Password) VALUES (@login, @password)";
+
+             using (SqlConnection connection = new SqlConnection(connectionString))
+             {
+                 await connection.OpenAsync();
+                 SqlCommand command = new SqlCommand(sqlExpression, connection);
+                 // создаем параметр для логина
+                 SqlParameter loginParam = new SqlParameter("@login", login);
+                 // добавляем параметр к команде
+                 command.Parameters.Add(loginParam);
+                 // создаем параметр для пароля
+                 SqlParameter passwordParam = new SqlParameter("@password", password);
+                 // добавляем параметр к команде
+                 command.Parameters.Add(passwordParam);
+                 // записываем строку в бд
+                 await command.ExecuteNonQueryAsync();
+             }
+         }*/
     }
 }

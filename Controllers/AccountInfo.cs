@@ -4,20 +4,25 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using INF2course.Week_6.Attributes;
 
-namespace INF2course.Week_6.Controllers
+namespace INF2course.Controllers
 {
-    public class Account
+    public class AccountInfo
     {
         public int Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public Account(int id, string login, string password)
+        public AccountInfo(int id, string login, string password)
         {
             Id = id;
             Login = login;
             Password = password;
+        }
+        public AccountInfo() { }
+
+        public void Show()
+        {
+            Console.WriteLine("Id: "+Id+";Login: "+Login+";Password: "+Password);
         }
     }
 }

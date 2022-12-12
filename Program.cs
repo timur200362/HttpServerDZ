@@ -1,85 +1,55 @@
 ﻿using System;
-using INF2course.Week_4;
-using INF2course.Week_5;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using INF2course.Controllers;
+using INF2course.DAO;
 
 namespace INF2course
 {
-    //WEEK4
-    //class ServerClass
-    //{
-    //    private bool running = true;
-    //    public bool Running { get => running; set { running = value; } }
-    //    public void Execute()
-    //    {
-    //        HttpServer server = new HttpServer(7700, @"./google", "google2.html");
-    //        server.Start();
-    //        while (running)
-    //            Handler(Console.ReadLine()?.ToLower(), server);
-    //    }
-    //    delegate void cmd(HttpServer server, ServerClass server_class);
-    //    static void Stop(HttpServer server, ServerClass server_class) { server.Stop(); }
-    //    static void Restart(HttpServer server, ServerClass server_class) { server.Start(); server.Stop(); }
-    //    static void Start(HttpServer server, ServerClass server_class) { server.Start(); }
-    //    static void Exit(HttpServer server, ServerClass server_class) { server_class.Running = false; }
-
-    //    Dictionary<string, cmd> dict = new Dictionary<string, cmd> { { "stop", Stop }, { "start", Start }, { "restart", Restart }, { "exit", Exit } };
-    //    void Handler(string command, HttpServer server)
-    //    {
-    //        if (dict.ContainsKey(command))
-    //            dict[command](server, this);
-    //    }
-    //}
-    //public class Program
-    //{
-    //    static void Main(string[] args)
-    //    {
-    //        ServerClass server_class = new ServerClass();
-    //        server_class.Execute();
-    //    }
-    //}
-    
-    //Week5
-    class ServerClass
+    public class Program
     {
-        private bool running = true;
-        public bool Running { get => running; set { running = value; } }
-        public void Execute()
+        private static bool _appIsRunning = true;
+        static void Main(string[] args)
         {
             StreamReader SR = new StreamReader("settings.json");
             string open_json = SR.ReadLine();
             SR.Close();
-            HttpServer2 server = JsonSerializer.Deserialize<HttpServer2>(open_json);
+            HttpServer3 server = JsonSerializer.Deserialize<HttpServer3>(open_json);
 
-
-            //HttpServer server = new HttpServer(7700, @"./google", "index.html");
             server.Init();
             server.Start();
-            while (running)
+            while (_appIsRunning)
                 Handler(Console.ReadLine()?.ToLower(), server);
         }
-        delegate void cmd(HttpServer2 server, ServerClass server_class);
-        static void Stop(HttpServer2 server, ServerClass server_class) { server.Stop(); }
-        static void Restart(HttpServer2 server, ServerClass server_class) { server.Stop(); server.Start(); }
-        static void Start(HttpServer2 server, ServerClass server_class) { server.Start(); }
-        static void Exit(HttpServer2 server, ServerClass server_class) { server_class.Running = false; }
-
-        Dictionary<string, cmd> dict = new Dictionary<string, cmd> { { "stop", Stop }, { "start", Start }, { "restart", Restart }, { "exit", Exit } };
-        void Handler(string command, HttpServer2 server)
+        static void Handler(string command, HttpServer3 server)
         {
-            if (dict.ContainsKey(command))
-                dict[command](server, this);
+            switch (command)
+            {
+                case "stop": server.Stop(); break;
+                case "restart": server.Start(); server.Stop(); break;
+                case "start": server.Start(); break;
+                case "status": Console.WriteLine(server.Status.ToString()); break;
+                case "exit": _appIsRunning = false; break;
+            }
         }
-    }
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            ServerClass server_class = new ServerClass();
-            server_class.Execute();
-        }
-
     }
 }
+//ORM
+//string str= @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SteamDB;Integrated Security=True";
+//MyORM myORM= new MyORM(str);
+//var result = new MyORM(str).ExecuteScalar<Account>("select Id,Login,Password from [dbo].[Table]");
+//var result = new MyORM(str)
+//    .AddParameter<string>("@Login", "SomeTea")
+//   .AddParameter<string>("@Password", "TeaPassword").ExecuteNonQuery("insert into [dbo].[Table] (Login,Password) values(@Login,@Password)");
+//var result2 = new MyORM(str).ExecuteQuery<int>("insert into [dbo].[Table] (Login,Password) values('SomeTea','TeaPassword')");
+//var result3 = new MyORM(str).Select<Account>();
+//foreach(var e in result3)
+//{
+//    e.Show();
+//}
+//new MyORM(str).Insert<AccountInfo>(new AccountInfo(5,"testLogin","testPassword"));
+
+//DAO
+//DAOAccount Dao = new DAOAccount();
+//Dao.Delete(new AccountInfo(1010, "SomeTea", "TeaPassword"));
