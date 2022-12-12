@@ -1,0 +1,12 @@
+* {
+  font-family: "Motiva Sans", Sans-serif;
+  height: auto;
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+header {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
