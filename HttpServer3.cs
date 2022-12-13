@@ -67,8 +67,14 @@ namespace INF2course
             while (_httpListener.IsListening && Status != ServerStatus.Stop)
             {
                 var http_context = await _httpListener.GetContextAsync();
-                if (MethodHandler(http_context)) return;
-                StaticFiles(http_context.Request, http_context.Response);
+                try
+                {
+                    if (!MethodHandler(http_context))
+                    {
+                        StaticFiles(http_context.Request, http_context.Response);
+                    }
+                }
+                catch { }
             }
         }
         private byte[] getFile(string rawUrl,string main_page)
@@ -195,11 +201,13 @@ namespace INF2course
                                 .ToArray();
 
             var controllerInstance = Activator.CreateInstance(controller);
-            if (controllerInstance is BaseController)
+            var baseController = controllerInstance as BaseController;
+            if (baseController != null)
             {
-                (controllerInstance as BaseController).Response = response;
+                baseController.Response = response;
+                baseController.Request = request;
             }
-            var ret = method.Invoke(controllerInstance      , queryParams);
+            var ret = method.Invoke(controllerInstance, queryParams);
             
             response.ContentType = "Application/json";
 

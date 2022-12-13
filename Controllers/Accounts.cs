@@ -10,6 +10,7 @@ using System.Reflection.PortableExecutable;
 using INF2course.Attributes;
 using INF2course.DAO;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace INF2course.Controllers
 {
@@ -56,34 +57,46 @@ namespace INF2course.Controllers
         [HttpGET("getaccounts")]
         public List<AccountInfo> GetAccounts()
         {
-        //    return dAO.GetAll();
-            List<AccountInfo> accounts = new List<AccountInfo>();
-            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SteamDB;Integrated Security=True";
-
-            string sqlExpression = "select * from [dbo].[Table]";
-            using (var connection = new SqlConnection(connectionString))
+            var cookie = Request.Cookies.FirstOrDefault(x => x.Name == "SessionId");
+            if (cookie == null)
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                SqlDataReader reader = command.ExecuteReader();
-
-                //если есть данные 
-                if (reader.HasRows)
-                {
-
-                    //Построчно считываем данные
-                    while (reader.Read())
-                    {
-                        accounts.Add(new AccountInfo
-                        (reader.GetInt32(0),
-                         reader.GetString(1),
-                         reader.GetString(2))
-                                );
-                    }
-                }
-                reader.Close();
+                Response.StatusCode = (int)HttpStatusCode.Unauthorized; // 401
+                return null;
             }
-            return accounts;
+            AuthInfo auth = System.Text.Json.JsonSerializer.Deserialize< AuthInfo>(cookie.Value.Replace("@", ","));
+            if (!auth.IsAuthorized)
+            {
+                Response.StatusCode = (int)HttpStatusCode.Unauthorized; // 401
+                return null;
+            }
+            return dAO.GetAll();
+            //List<AccountInfo> accounts = new List<AccountInfo>();
+            //string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SteamDB;Integrated Security=True";
+
+            //string sqlExpression = "select * from [dbo].[Table]";
+            //using (var connection = new SqlConnection(connectionString))
+            //{
+            //    connection.Open();
+            //    SqlCommand command = new SqlCommand(sqlExpression, connection);
+            //    SqlDataReader reader = command.ExecuteReader();
+
+            //    //если есть данные 
+            //    if (reader.HasRows)
+            //    {
+
+            //        //Построчно считываем данные
+            //        while (reader.Read())
+            //        {
+            //            accounts.Add(new AccountInfo
+            //            (reader.GetInt32(0),
+            //             reader.GetString(1),
+            //             reader.GetString(2))
+            //                    );
+            //        }
+            //    }
+            //    reader.Close();
+            //}
+            //return accounts;
         }
 
         [HttpPOST("saveaccount")]
@@ -112,8 +125,8 @@ namespace INF2course.Controllers
             AccountInfo existingAccount = dAO.GetByColumnValue("login", login);
             if (existingAccount != null && existingAccount.Password == password)
             {
-                string cookie = System.Text.Json.JsonSerializer.Serialize(new { Authorized = true, Id = existingAccount.Id });
-                Response.Cookies.Add(new Cookie("SessionId", cookie));
+                string cookie = System.Text.Json.JsonSerializer.Serialize(new AuthInfo { IsAuthorized = true, UserId = existingAccount.Id });
+                Response.Cookies.Add(new Cookie("SessionId", cookie.Replace(",", "@")));
                 return true;
             }
 
