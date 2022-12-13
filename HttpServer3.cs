@@ -9,6 +9,8 @@ using System.Reflection;
 using System.Text.Json;
 using System.Collections.Specialized;
 using INF2course.Attributes;
+using System.Diagnostics;
+using INF2course.Controllers;
 
 namespace INF2course
 {
@@ -151,6 +153,7 @@ namespace INF2course
                     "GET" => x.GetCustomAttribute<HttpGET>()?.MethodURI == methodURI,
                     "POST" => x.GetCustomAttribute<HttpPOST>()?.MethodURI == methodURI
                 });
+             
 
             NameValueCollection par = new NameValueCollection();
 
@@ -191,8 +194,13 @@ namespace INF2course
                                 .Select((p, i) => Convert.ChangeType(strParams[i], p.ParameterType))
                                 .ToArray();
 
-            var ret = method.Invoke(Activator.CreateInstance(controller), queryParams);
-
+            var controllerInstance = Activator.CreateInstance(controller);
+            if (controllerInstance is BaseController)
+            {
+                (controllerInstance as BaseController).Response = response;
+            }
+            var ret = method.Invoke(controllerInstance      , queryParams);
+            
             response.ContentType = "Application/json";
 
             byte[] buffer = Encoding.ASCII.GetBytes(JsonSerializer.Serialize(ret));
@@ -200,8 +208,6 @@ namespace INF2course
 
             Stream output = response.OutputStream;
             output.Write(buffer, 0, buffer.Length);
-
-            //context.Response.Redirect("https://store.steampowered.com/");
 
             output.Close();
 

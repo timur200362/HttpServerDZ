@@ -98,7 +98,11 @@
                   </div>
                   <div class="newlogindialog_FormContainer">
                     <div class="newlogindialog_SideBySide">
-                      <form class="newlogindialog_LoginForm">
+                      <form
+                        class="newlogindialog_LoginForm"
+                        action="accounts/login"
+                        method="post"
+                      >
                         <div class="newlogindialog_TextField1">
                           <div
                             class="newlogindialog_FieldLabel1 newlogindialog_HighLight"
@@ -106,6 +110,7 @@
                             Войти, используя имя аккаунта
                           </div>
                           <input
+                            name="login"
                             type="text"
                             class="newlogindialog_TextInput1"
                             value=""
@@ -114,6 +119,7 @@
                         <div class="newlogindialog_TextField2">
                           <div class="newlogindialog_FieldLabel2">Пароль</div>
                           <input
+                            name="password"
                             type="password"
                             class="newlogindialog_TextInput2"
                             value=""

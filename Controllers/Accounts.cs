@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 using System.Reflection.PortableExecutable;
 using INF2course.Attributes;
 using INF2course.DAO;
+using Newtonsoft.Json;
 
 namespace INF2course.Controllers
 {
     [HttpController("accounts")]
-    public class Accounts
+    public class Accounts: BaseController
     {
         DAOAccount dAO=new DAOAccount();
 
@@ -101,6 +102,20 @@ namespace INF2course.Controllers
                 Password = password
             };
             dAO.Insert(accountInfo);
+
+            return false;
+        }
+
+        [HttpPOST("login")]
+        public bool Login(string login, string password)
+        {
+            AccountInfo existingAccount = dAO.GetByColumnValue("login", login);
+            if (existingAccount != null && existingAccount.Password == password)
+            {
+                string cookie = System.Text.Json.JsonSerializer.Serialize(new { Authorized = true, Id = existingAccount.Id });
+                Response.Cookies.Add(new Cookie("SessionId", cookie));
+                return true;
+            }
 
             return false;
         }
