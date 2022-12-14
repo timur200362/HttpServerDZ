@@ -11,6 +11,7 @@ using INF2course.Attributes;
 using INF2course.DAO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Runtime.CompilerServices;
 
 namespace INF2course.Controllers
 {
@@ -57,16 +58,8 @@ namespace INF2course.Controllers
         [HttpGET("getaccounts")]
         public List<AccountInfo> GetAccounts()
         {
-            var cookie = Request.Cookies.FirstOrDefault(x => x.Name == "SessionId");
-            if (cookie == null)
+            if (GetCurrentAuthInfo() == null)
             {
-                Response.StatusCode = (int)HttpStatusCode.Unauthorized; // 401
-                return null;
-            }
-            AuthInfo auth = System.Text.Json.JsonSerializer.Deserialize< AuthInfo>(cookie.Value.Replace("@", ","));
-            if (!auth.IsAuthorized)
-            {
-                Response.StatusCode = (int)HttpStatusCode.Unauthorized; // 401
                 return null;
             }
             return dAO.GetAll();
@@ -131,6 +124,36 @@ namespace INF2course.Controllers
             }
 
             return false;
+        }
+
+        private AuthInfo GetCurrentAuthInfo()
+        {
+            var cookie = Request.Cookies.FirstOrDefault(x => x.Name == "SessionId");
+            if (cookie == null)
+            {
+                Response.StatusCode = (int)HttpStatusCode.Unauthorized; // 401
+                return null;
+            }
+            AuthInfo auth = System.Text.Json.JsonSerializer.Deserialize<AuthInfo>(cookie.Value.Replace("@", ","));            
+            if (!auth.IsAuthorized)
+            {
+                Response.StatusCode = (int)HttpStatusCode.Unauthorized; // 401
+                return null;
+            }
+            return auth;
+        }
+
+        [HttpGET("getaccountinfo")]
+        public AccountInfo GetAccountInfo()
+        {
+            AuthInfo currentAuth = GetCurrentAuthInfo();
+            if (currentAuth == null)
+            {
+                return null;
+            }
+
+            AccountInfo existingAccount = dAO.GetByColumnValue("id", currentAuth.UserId);            
+            return existingAccount;
         }
 
         /* public static async void SaveAccount(string login = "test3", string password = "test3")

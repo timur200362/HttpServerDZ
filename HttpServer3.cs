@@ -11,6 +11,8 @@ using System.Collections.Specialized;
 using INF2course.Attributes;
 using System.Diagnostics;
 using INF2course.Controllers;
+using static System.Net.WebRequestMethods;
+using File = System.IO.File;
 
 namespace INF2course
 {
@@ -104,6 +106,7 @@ namespace INF2course
             if (Directory.Exists(Path))
             {
                 buffer = getFile(request.RawUrl.Replace("%20", " "),MainPage);
+                //TypeFiles.GetExtension(ref response, "." + request.RawUrl);
                 if (buffer == null)
                 {
                     response.Headers.Set("Content-Type", "text/plain");
