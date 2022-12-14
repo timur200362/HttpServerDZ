@@ -118,8 +118,9 @@ namespace INF2course.Controllers
             AccountInfo existingAccount = dAO.GetByColumnValue("login", login);
             if (existingAccount != null && existingAccount.Password == password)
             {
-                string cookie = System.Text.Json.JsonSerializer.Serialize(new AuthInfo { IsAuthorized = true, UserId = existingAccount.Id });
-                Response.Cookies.Add(new Cookie("SessionId", cookie.Replace(",", "@")));
+                Session session = SessionManager.Create(existingAccount.Id, "user@gmail.com");
+                string cookie = System.Text.Json.JsonSerializer.Serialize(session.Id);
+                Response.Cookies.Add(new Cookie("SessionId", cookie));
                 return true;
             }
 
@@ -134,13 +135,15 @@ namespace INF2course.Controllers
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized; // 401
                 return null;
             }
-            AuthInfo auth = System.Text.Json.JsonSerializer.Deserialize<AuthInfo>(cookie.Value.Replace("@", ","));            
-            if (!auth.IsAuthorized)
+            Guid sessionId = System.Text.Json.JsonSerializer.Deserialize<Guid>(cookie.Value);            
+            if (!SessionManager.IsValid(sessionId))
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized; // 401
                 return null;
             }
-            return auth;
+
+            Session session = SessionManager.GetById(sessionId);
+            return new AuthInfo {  IsAuthorized = true, UserId = session.AccountId };
         }
 
         [HttpGET("getaccountinfo")]
