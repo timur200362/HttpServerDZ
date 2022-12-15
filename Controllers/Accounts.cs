@@ -120,7 +120,7 @@ namespace INF2course.Controllers
             {
                 Session session = SessionManager.Create(existingAccount.Id, "user@gmail.com");
                 string cookie = System.Text.Json.JsonSerializer.Serialize(session.Id);
-                Response.Cookies.Add(new Cookie("SessionId", cookie));
+                Response.Cookies.Add(new Cookie("SessionId", cookie,path:"/"));
                 return true;
             }
 

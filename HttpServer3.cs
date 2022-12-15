@@ -16,11 +16,6 @@ using File = System.IO.File;
 
 namespace INF2course
 {
-    //public class ServerSetting
-    //{
-    //    public int Port { get; set; } = 7700;
-    //    public string Path { get; set; } = @"./steam";
-    //}
     public class HttpServer3 : IDisposable
     {
         public int Port { get; set; }
@@ -234,35 +229,4 @@ namespace INF2course
             Stop();
         }
     }
-    //private void ListenerCallBack(IAsyncResult result)
-    //{
-    //    if (http_listener.IsListening && Status != ServerStatus.Stop)
-    //    {
-    //        var _httpContext = http_listener.EndGetContext(result);
-    //        HttpListenerRequest request = _httpContext.Request;
-    //        HttpListenerResponse response = _httpContext.Response;
-    //        byte[] buffer;
-    //        if (Directory.Exists(Path))
-    //        {
-    //            buffer = getFile(_httpContext.Request.RawUrl, MainPage);
-    //            if (buffer == null)
-    //            {
-    //                response.Headers.Set("Content-Type", "text/plain");
-    //                response.StatusCode = (int)HttpStatusCode.NotFound;
-    //                string err = "404 - not found";
-    //                buffer = Encoding.UTF8.GetBytes(err);
-    //            }
-    //        }
-    //        else
-    //        {
-    //            string err = $"Directory " + Path + " not found";
-    //            buffer = Encoding.UTF8.GetBytes(err);
-    //        }
-    //        Stream output = response.OutputStream;
-    //        output.Write(buffer, 0, buffer.Length);
-    //        output.Close();
-    //        Listening();
-    //    }
-    //}
-    
 }
